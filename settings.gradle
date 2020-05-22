@@ -1,0 +1,2 @@
+include ':app', ':fdnetwork'
+rootProject.name='FDNetworkExample'
