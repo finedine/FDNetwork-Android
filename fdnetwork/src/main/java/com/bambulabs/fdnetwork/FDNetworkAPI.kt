@@ -53,7 +53,7 @@ interface FDNetworkAPI {
     fun getFeedbackForms(): Observable<String>
 
     @POST("feedbacks")
-    suspend fun sendFeedbackForm(@Body feedbackFormRequest: String): Observable<String>
+    suspend fun sendFeedbackForm(@Body feedbackFormRequest: String): Response<String>
 
     @POST("feedbacks/bulk")
     suspend fun sendFeedbackFormOffline(@Body feedbackFormRequest: String): Response<String>
