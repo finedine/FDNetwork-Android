@@ -10,13 +10,28 @@ import retrofit2.http.*
 interface FDNetworkAPI {
 
     @POST("devices")
-    fun authentication(@Body authenticationRequest: String): Observable<String>
+    suspend fun authentication(@Body authenticationRequest: RequestBody): Response<String>
 
     @GET("shops/{venueId}")
-    fun getShop(@Path("venueId") venueId: String, @Query("select") select: String, @Query("populate") populate: String): Observable<String>
+    suspend fun getShop(@Path("venueId") venueId: String, @Query("select") select: String, @Query("populate") populate: String): Response<String>
 
     @GET("tables")
-    fun getTables(@Query("limit") limit: String): Observable<String>
+    suspend fun getTables(@Query("limit") limit: String): Response<String>
+
+    @GET("ads")
+    suspend fun getAds(): Response<String>
+
+    @GET("employees")
+    suspend fun getEmployees(@Query("limit") limit: String): Response<String>
+
+    @GET("feedbackforms")
+    suspend fun getFeedbackForms(): Response<String>
+
+    @GET("modifiergroups")
+    suspend fun getModifierGroups(@Query("limit") limit: String): Response<String>
+
+    @GET("entities")
+    suspend fun getMenus(@Query("where") where: String, @Query("limit") limit: String): Response<String>
 
     @GET("tickets?sort=-updated_at")
     fun getTickets(
@@ -37,29 +52,14 @@ interface FDNetworkAPI {
     @POST("shops/{shopID}/ticket/add")
     fun addTicket(@Path("shopID") shopID: String, @Body createTicket: String): Observable<String>
 
-    @GET("employees")
-    fun getEmployees(@Query("limit") limit: String): Observable<String>
-
     @GET("tickets/{ticketID}/calculate")
     fun calculateCheckout(@Path("ticketID") ticketID: String): Observable<String>
-
-    @GET("modifiergroups")
-    fun getModifierGroups(@Query("limit") limit: String): Observable<String>
-
-    @GET("ads")
-    fun getAds(): Observable<String>
-
-    @GET("feedbackforms")
-    fun getFeedbackForms(): Observable<String>
 
     @POST("feedbacks")
     suspend fun sendFeedbackForm(@Body feedbackFormRequest: RequestBody): Response<String>
 
     @POST("feedbacks/bulk")
     suspend fun sendFeedbackFormOffline(@Body feedbackFormRequest: RequestBody): Response<String>
-
-    @GET("entities")
-    fun getMenus(@Query("where") where: String, @Query("limit") limit: String): Observable<String>
 
     @GET("entities/{menuID}/flat-list")
     suspend fun getMenuFlatList(@Path("menuID") menuID: String): Response<String>
