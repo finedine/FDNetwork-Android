@@ -44,10 +44,10 @@ interface FDNetworkAPI {
     suspend fun createTicket(@Path("shopID") shopID: String, @Body createTicket: RequestBody): Response<String>
 
     @POST("devices/{deviceID}/assign-table")
-    fun assignDevice(@Path("deviceID") deviceID: String, @Body tableTopRequest: String): Observable<String>
+    suspend fun assignDevice(@Path("deviceID") deviceID: String, @Body tableTopRequest: RequestBody): Response<String>
 
     @GET("tickets")
-    fun findOpenTable(@Query("where") where: String, @Query("limit") limit: String): Observable<String>
+    suspend fun findOpenTable(@Query("where") where: String, @Query("limit") limit: String): Response<String>
 
     @POST("shops/{shopID}/ticket/add")
     fun addTicket(@Path("shopID") shopID: String, @Body createTicket: String): Observable<String>
