@@ -34,20 +34,20 @@ interface FDNetworkAPI {
     suspend fun getMenus(@Query("where") where: String, @Query("limit") limit: String): Response<String>
 
     @GET("tickets?sort=-updated_at")
-    fun getTickets(
+    suspend fun getTickets(
         @Query("where") where: String, @Query("offset") offset: String, @Query("limit") limit: String, @Query(
             "populate"
         ) populate: String
-    ): Observable<String>
+    ): Response<String>
+
+    @POST("shops/{shopID}/ticket/create")
+    suspend fun createTicket(@Path("shopID") shopID: String, @Body createTicket: RequestBody): Response<String>
 
     @POST("devices/{deviceID}/assign-table")
     fun assignDevice(@Path("deviceID") deviceID: String, @Body tableTopRequest: String): Observable<String>
 
     @GET("tickets")
     fun findOpenTable(@Query("where") where: String, @Query("limit") limit: String): Observable<String>
-
-    @POST("shops/{shopID}/ticket/create")
-    fun createTicket(@Path("shopID") shopID: String, @Body createTicket: RequestBody): Observable<String>
 
     @POST("shops/{shopID}/ticket/add")
     fun addTicket(@Path("shopID") shopID: String, @Body createTicket: String): Observable<String>
