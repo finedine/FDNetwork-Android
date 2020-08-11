@@ -71,10 +71,10 @@ interface FDNetworkAPI {
         ) offset: String, @Query("limit") limit: String
     ): Response<String>
 
-    @GET("devices/{_id}/version")
-    suspend fun getDeviceVersion(@Path("_id") deviceID: String): Response<String>
+    @GET("devices/{deviceID}/version")
+    suspend fun getDeviceVersion(@Path("deviceID") deviceID: String): Response<String>
 
-    @GET("shops/{_id}/status")
-    suspend fun getShopStatus(@Path("_id") shopID: String): Response<String>
+    @GET("shops/{shopID}/status")
+    suspend fun getShopStatus(@Path("shopID") shopID: String): Response<String>
 
 }
