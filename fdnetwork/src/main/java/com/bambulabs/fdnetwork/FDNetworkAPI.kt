@@ -50,7 +50,7 @@ interface FDNetworkAPI {
     suspend fun findOpenTable(@Query("where") where: String, @Query("limit") limit: String): Response<String>
 
     @POST("shops/{shopID}/ticket/add")
-    suspend fun addTicket(@Path("shopID") shopID: String, @Body createTicket: String): Response<String>
+    suspend fun addTicket(@Path("shopID") shopID: String, @Body createTicket: RequestBody): Response<String>
 
     @GET("tickets/{ticketID}/calculate")
     suspend fun calculateCheckout(@Path("ticketID") ticketID: String): Response<String>
