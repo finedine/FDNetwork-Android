@@ -50,10 +50,13 @@ interface FDNetworkAPI {
     suspend fun findOpenTable(@Query("where") where: String, @Query("limit") limit: String): Response<String>
 
     @POST("shops/{shopID}/ticket/add")
-    fun addTicket(@Path("shopID") shopID: String, @Body createTicket: String): Observable<String>
+    suspend fun addTicket(@Path("shopID") shopID: String, @Body createTicket: String): Response<String>
 
     @GET("tickets/{ticketID}/calculate")
-    fun calculateCheckout(@Path("ticketID") ticketID: String): Observable<String>
+    suspend fun calculateCheckout(@Path("ticketID") ticketID: String): Response<String>
+
+    @POST("tickets/preview")
+    suspend fun calculateCheckoutForKiosk(@Body request: RequestBody): Response<String>
 
     @POST("feedbacks")
     suspend fun sendFeedbackForm(@Body feedbackFormRequest: RequestBody): Response<String>
