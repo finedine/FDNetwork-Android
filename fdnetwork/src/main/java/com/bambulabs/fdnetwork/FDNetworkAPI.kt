@@ -52,6 +52,12 @@ interface FDNetworkAPI {
     @POST("shops/{shopID}/ticket/add")
     suspend fun addTicket(@Path("shopID") shopID: String, @Body createTicket: RequestBody): Response<String>
 
+    @POST("shops/{shopID}/ticket/createAndAdd")
+    suspend fun createAndAdd(@Path("shopID") shopID: String, @Body createTicket: RequestBody): Response<String>
+
+    @POST("tickets/kiosk")
+    suspend fun sendOrderForKiosk(@Body createTicket: RequestBody): Response<String>
+
     @GET("tickets/{ticketID}/calculate")
     suspend fun calculateCheckout(@Path("ticketID") ticketID: String): Response<String>
 
