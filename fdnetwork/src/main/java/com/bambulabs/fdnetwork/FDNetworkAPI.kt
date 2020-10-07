@@ -10,6 +10,27 @@ import retrofit2.http.*
 interface FDNetworkAPI {
 
     @POST("devices")
+    fun authentication(@Body authenticationRequest: String): Observable<String>
+
+    @GET("shops/{venueId}")
+    fun getShop(@Path("venueId") venueId: String, @Query("select") select: String, @Query("populate") populate: String): Observable<String>
+
+    @GET("tables")
+    fun getTables(@Query("limit") limit: String): Observable<String>
+
+    @GET("ads")
+    fun getAds(): Observable<String>
+
+    @GET("employees")
+    fun getEmployees(@Query("limit") limit: String): Observable<String>
+
+    @GET("feedbackforms")
+    fun getFeedbackForms(): Observable<String>
+
+    @GET("modifiergroups")
+    fun getModifierGroups(@Query("limit") limit: String): Observable<String>
+
+    /*@POST("devices")
     suspend fun authentication(@Body authenticationRequest: RequestBody): Response<String>
 
     @GET("shops/{venueId}")
@@ -28,7 +49,7 @@ interface FDNetworkAPI {
     suspend fun getFeedbackForms(): Response<String>
 
     @GET("modifiergroups")
-    suspend fun getModifierGroups(@Query("limit") limit: String): Response<String>
+    suspend fun getModifierGroups(@Query("limit") limit: String): Response<String>*/
 
     @GET("entities")
     suspend fun getMenus(@Query("where") where: String, @Query("limit") limit: String): Response<String>
