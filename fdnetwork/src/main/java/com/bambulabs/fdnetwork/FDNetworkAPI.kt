@@ -49,10 +49,14 @@ interface FDNetworkAPI {
     suspend fun getFeedbackForms(): Response<String>
 
     @GET("modifiergroups")
-    suspend fun getModifierGroups(@Query("limit") limit: String): Response<String>*/
+    suspend fun getModifierGroups(@Query("limit") limit: String): Response<String>
 
     @GET("entities")
     suspend fun getMenus(@Query("where") where: String, @Query("limit") limit: String): Response<String>
+    */
+
+    @GET("entities")
+    fun getMenus(@Query("where") where: String, @Query("limit") limit: String): Observable<String>
 
     @GET("tickets?sort=-updated_at")
     suspend fun getTickets(
