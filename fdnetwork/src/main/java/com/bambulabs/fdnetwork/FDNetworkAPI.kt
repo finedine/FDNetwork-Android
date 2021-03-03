@@ -81,10 +81,10 @@ interface FDNetworkAPI {
     suspend fun calculateAnOrder(@Body payload: RequestBody): Response<String>
 
     @POST("v2/orders/create")
-    suspend fun createAnOrder(@Path("shopID") shopID: String, @Body createTicket: RequestBody): Response<String>
+    suspend fun createAnOrder(@Body payload: RequestBody): Response<String>
 
     @POST("v2/orders/add")
-    suspend fun createAndAddOrder(@Path("shopID") shopID: String, @Body createTicket: RequestBody): Response<String>
+    suspend fun createAndAddOrder(@Body payload: RequestBody): Response<String>
 
     @POST("shops/{shopID}/ticket/create")
     suspend fun createTicket(@Path("shopID") shopID: String, @Body createTicket: RequestBody): Response<String>
