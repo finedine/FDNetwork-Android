@@ -70,12 +70,20 @@ interface FDNetworkAPI {
     suspend fun getOrders(
         @Query("where") where: String,
         @Query("offset") offset: String,
-        @Query("limit") limit: String,
-        @Query("populate") populate: String
+        @Query("limit") limit: String
     ): Response<String>
 
     @GET("v2/orders/{orderID}")
-    suspend fun getAnOrder(@Path("orderID") orderID: String): Response<String>
+    suspend fun getAnOrder(
+        @Path("orderID") orderID: String,
+        @Query("populate") populate: String
+    ): Response<String>
+
+    @GET("v2/order-items/{orderItemID}")
+    suspend fun getAnOrderItem(
+        @Path("orderItemID") orderID: String,
+        @Query("populate") populate: String
+    ): Response<String>
 
     @GET("v2/orders/calculate")
     suspend fun calculateAnOrder(@Body payload: RequestBody): Response<String>
