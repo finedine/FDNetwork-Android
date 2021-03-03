@@ -60,10 +60,31 @@ interface FDNetworkAPI {
 
     @GET("tickets?sort=-updated_at")
     suspend fun getTickets(
-        @Query("where") where: String, @Query("offset") offset: String, @Query("limit") limit: String, @Query(
-            "populate"
-        ) populate: String
+        @Query("where") where: String,
+        @Query("offset") offset: String,
+        @Query("limit") limit: String,
+        @Query("populate") populate: String
     ): Response<String>
+
+    @GET("v2/orders")
+    suspend fun getOrders(
+        @Query("where") where: String,
+        @Query("offset") offset: String,
+        @Query("limit") limit: String,
+        @Query("populate") populate: String
+    ): Response<String>
+
+    @GET("v2/orders/{orderID}")
+    suspend fun getAnOrder(@Path("orderID") orderID: String): Response<String>
+
+    @GET("v2/orders/calculate")
+    suspend fun calculateAnOrder(@Body payload: RequestBody): Response<String>
+
+    @POST("v2/orders/create")
+    suspend fun createAnOrder(@Path("shopID") shopID: String, @Body createTicket: RequestBody): Response<String>
+
+    @POST("v2/orders/add")
+    suspend fun createAndAddOrder(@Path("shopID") shopID: String, @Body createTicket: RequestBody): Response<String>
 
     @POST("shops/{shopID}/ticket/create")
     suspend fun createTicket(@Path("shopID") shopID: String, @Body createTicket: RequestBody): Response<String>
