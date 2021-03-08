@@ -33,31 +33,31 @@ interface FDNetworkAPI {
     @GET("entities")
     fun getMenus(@Query("where") where: String, @Query("limit") limit: String): Observable<String> */
 
-    @POST("devices")
+    @POST("v1/devices")
     suspend fun authentication(@Body authenticationRequest: RequestBody): Response<String>
 
-    @GET("shops/{venueId}")
+    @GET("v1/shops/{venueId}")
     suspend fun getShop(@Path("venueId") venueId: String, @Query("select") select: String, @Query("populate") populate: String): Response<String>
 
-    @GET("tables")
+    @GET("v1/tables")
     suspend fun getTables(@Query("limit") limit: String): Response<String>
 
-    @GET("ads")
+    @GET("v1/ads")
     suspend fun getAds(): Response<String>
 
-    @GET("employees")
+    @GET("v1/employees")
     suspend fun getEmployees(@Query("limit") limit: String): Response<String>
 
-    @GET("feedbackforms")
+    @GET("v1/feedbackforms")
     suspend fun getFeedbackForms(): Response<String>
 
-    @GET("modifiergroups")
+    @GET("v1/modifiergroups")
     suspend fun getModifierGroups(@Query("limit") limit: String): Response<String>
 
-    @GET("entities")
+    @GET("v1/entities")
     suspend fun getMenus(@Query("where") where: String, @Query("limit") limit: String): Response<String>
 
-    @GET("tickets?sort=-updated_at")
+    @GET("v1/tickets?sort=-updated_at")
     suspend fun getTickets(
         @Query("where") where: String,
         @Query("offset") offset: String,
@@ -93,50 +93,50 @@ interface FDNetworkAPI {
     @POST("v2/orders/add")
     suspend fun createAndAddOrder(@Body payload: RequestBody): Response<String>
 
-    @POST("shops/{shopID}/ticket/create")
+    @POST("v1/shops/{shopID}/ticket/create")
     suspend fun createTicket(@Path("shopID") shopID: String, @Body createTicket: RequestBody): Response<String>
 
-    @POST("devices/{deviceID}/assign-table")
+    @POST("v1/devices/{deviceID}/assign-table")
     suspend fun assignDevice(@Path("deviceID") deviceID: String, @Body tableTopRequest: RequestBody): Response<String>
 
-    @GET("tickets")
+    @GET("v1/tickets")
     suspend fun findOpenTable(@Query("where") where: String, @Query("limit") limit: String): Response<String>
 
-    @POST("shops/{shopID}/ticket/add")
+    @POST("v1/shops/{shopID}/ticket/add")
     suspend fun addTicket(@Path("shopID") shopID: String, @Body createTicket: RequestBody): Response<String>
 
-    @POST("shops/{shopID}/ticket/createAndAdd")
+    @POST("v1/shops/{shopID}/ticket/createAndAdd")
     suspend fun createAndAdd(@Path("shopID") shopID: String, @Body createTicket: RequestBody): Response<String>
 
-    @POST("tickets/kiosk")
+    @POST("v1/tickets/kiosk")
     suspend fun sendOrderForKiosk(@Body createTicket: RequestBody): Response<String>
 
-    @GET("tickets/{ticketID}/calculate")
+    @GET("v1/tickets/{ticketID}/calculate")
     suspend fun calculateCheckout(@Path("ticketID") ticketID: String): Response<String>
 
-    @POST("tickets/preview")
+    @POST("v1/tickets/preview")
     suspend fun calculateCheckoutForKiosk(@Body request: RequestBody): Response<String>
 
-    @POST("feedbacks")
+    @POST("v1/feedbacks")
     suspend fun sendFeedbackForm(@Body feedbackFormRequest: RequestBody): Response<String>
 
-    @POST("feedbacks/bulk")
+    @POST("v1/feedbacks/bulk")
     suspend fun sendFeedbackFormOffline(@Body feedbackFormRequest: RequestBody): Response<String>
 
-    @GET("entities/{menuID}/flat-list")
+    @GET("v1/entities/{menuID}/flat-list")
     suspend fun getMenuFlatList(@Path("menuID") menuID: String): Response<String>
 
-    @GET("entities")
+    @GET("v1/entities")
     suspend fun getEntitiesWithResponse(
         @Query("where") where: String, @Query("fill") fill: String, @Query(
             "offset"
         ) offset: String, @Query("limit") limit: String
     ): Response<String>
 
-    @GET("devices/{deviceID}/version")
+    @GET("v1/devices/{deviceID}/version")
     suspend fun getDeviceVersion(@Path("deviceID") deviceID: String): Response<String>
 
-    @GET("shops/{shopID}/status")
+    @GET("v1/shops/{shopID}/status")
     suspend fun getShopStatus(@Path("shopID") shopID: String): Response<String>
 
 }
