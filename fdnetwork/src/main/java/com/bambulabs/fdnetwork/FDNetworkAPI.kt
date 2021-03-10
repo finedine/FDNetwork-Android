@@ -84,7 +84,7 @@ interface FDNetworkAPI {
         @Query("populate") populate: String
     ): Response<String>
 
-    @GET("v2/orders/calculate")
+    @POST("v2/orders/calculate")
     suspend fun calculateAnOrder(@Body payload: RequestBody): Response<String>
 
     @POST("v2/orders/create")
