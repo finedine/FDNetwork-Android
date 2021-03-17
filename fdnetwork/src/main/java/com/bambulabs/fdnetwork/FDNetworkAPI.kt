@@ -94,7 +94,7 @@ interface FDNetworkAPI {
     suspend fun createAndAddOrder(@Body payload: RequestBody): Response<String>
 
     @POST("v2/orders/payment/{method}/init")
-    suspend fun paymentRequest(@Path("shopID") shopID: String, @Body payload: RequestBody): Response<String>
+    suspend fun paymentRequest(@Path("method") method: String, @Body payload: RequestBody): Response<String>
 
     @POST("v1/shops/{shopID}/ticket/create")
     suspend fun createTicket(@Path("shopID") shopID: String, @Body createTicket: RequestBody): Response<String>
