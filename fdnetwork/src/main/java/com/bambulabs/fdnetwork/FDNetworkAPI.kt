@@ -65,7 +65,7 @@ interface FDNetworkAPI {
         @Query("populate") populate: String
     ): Response<String>
 
-    @GET("v2/orders")
+    @GET("v2/orders?sort=-updated_at")
     suspend fun getOrders(
         @Query("where") where: String,
         @Query("offset") offset: String,
@@ -92,6 +92,9 @@ interface FDNetworkAPI {
 
     @POST("v2/orders/add")
     suspend fun createAndAddOrder(@Body payload: RequestBody): Response<String>
+
+    @POST("v2/orders/payment/{method}/init")
+    suspend fun paymentRequest(@Path("shopID") shopID: String, @Body payload: RequestBody): Response<String>
 
     @POST("v1/shops/{shopID}/ticket/create")
     suspend fun createTicket(@Path("shopID") shopID: String, @Body createTicket: RequestBody): Response<String>
