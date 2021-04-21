@@ -6,8 +6,8 @@ class FDNetworkCompanions {
         var authenticationToken: String? = null
         var isStagingMode: Boolean = false
 
-        var baseUrl = "https://api-staging.finedinemenu.com/"
-        var panelUrl = "http://fdmetronic.herokuapp.com/"
+        var baseUrl = "https://api.finedinemenu.com/"
+        var panelUrl = "https://panel.finedinemenu.com/"
 
         fun setStagingActive(boolean: Boolean){
             if (boolean) {
