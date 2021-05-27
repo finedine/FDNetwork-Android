@@ -144,4 +144,7 @@ interface FDNetworkAPI {
     @GET("v1/shops/{shopID}/status")
     suspend fun getShopStatus(@Path("shopID") shopID: String): Response<String>
 
+    @POST("v2/orders/status")
+    suspend fun setShopStatus(@Body feedbackFormRequest: RequestBody): Response<String>
+
 }
