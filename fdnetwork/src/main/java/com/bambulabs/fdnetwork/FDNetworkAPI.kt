@@ -88,8 +88,7 @@ interface FDNetworkAPI {
     suspend fun calculateAnOrder(@Body payload: RequestBody): Response<String>
 
     @POST("v2/orders/create")
-    suspend fun createAnOrder(@Body payload: RequestBody,
-                              @Query("populate") populate: String): Response<String>
+    suspend fun createAnOrder(@Body payload: RequestBody): Response<String>
 
     @POST("v2/orders/add")
     suspend fun createAndAddOrder(@Body payload: RequestBody,
@@ -145,6 +144,6 @@ interface FDNetworkAPI {
     suspend fun getShopStatus(@Path("shopID") shopID: String): Response<String>
 
     @POST("v2/orders/status")
-    suspend fun setShopStatus(@Body feedbackFormRequest: RequestBody): Response<String>
+    suspend fun setOrderStatus(@Body payload: RequestBody): Response<String>
 
 }
