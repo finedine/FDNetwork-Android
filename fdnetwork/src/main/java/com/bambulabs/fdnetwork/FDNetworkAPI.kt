@@ -145,4 +145,7 @@ interface FDNetworkAPI {
     @POST("v2/orders/status")
     suspend fun setOrderStatus(@Body payload: RequestBody): Response<String>
 
+    @POST("v2/orders/cancel")
+    suspend fun cancelOrder(@Body payload: RequestBody): Response<String>
+
 }
