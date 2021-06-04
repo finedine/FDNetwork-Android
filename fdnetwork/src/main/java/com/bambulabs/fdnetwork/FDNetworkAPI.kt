@@ -33,7 +33,7 @@ interface FDNetworkAPI {
     @GET("entities")
     fun getMenus(@Query("where") where: String, @Query("limit") limit: String): Observable<String> */
 
-    @POST("v1/devices")
+    @POST("v2/devices")
     suspend fun authentication(@Body authenticationRequest: RequestBody): Response<String>
 
     @GET("v1/shops/{venueId}")
@@ -139,7 +139,7 @@ interface FDNetworkAPI {
     @GET("v1/devices/{deviceID}/version")
     suspend fun getDeviceVersion(@Path("deviceID") deviceID: String): Response<String>
 
-    @GET("v1/shops/{shopID}/status")
+    @GET("v2/shops/{shopID}/status")
     suspend fun getShopStatus(@Path("shopID") shopID: String): Response<String>
 
     @POST("v2/orders/status")
