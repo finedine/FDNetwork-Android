@@ -151,6 +151,9 @@ interface FDNetworkAPI {
     @POST("v2/order-items/update")
     suspend fun orderItemUpdate(@Body payload: RequestBody): Response<String>
 
+    @POST("v2/order-items/delete")
+    suspend fun orderItemDelete(@Body payload: RequestBody): Response<String>
+
     @POST("v2/orders/update")
     suspend fun orderUpdate(@Body payload: RequestBody): Response<String>
 
