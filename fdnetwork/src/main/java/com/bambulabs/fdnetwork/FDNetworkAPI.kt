@@ -157,4 +157,7 @@ interface FDNetworkAPI {
     @POST("v2/orders/update")
     suspend fun orderUpdate(@Body payload: RequestBody): Response<String>
 
+    @POST("v2/orders/list-by-tables")
+    suspend fun listByTables(@Body payload: RequestBody): Response<String>
+
 }
