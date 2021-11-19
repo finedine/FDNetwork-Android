@@ -22,7 +22,7 @@ import javax.net.ssl.HostnameVerifier
 import javax.net.ssl.SSLContext
 import javax.net.ssl.TrustManager
 import javax.net.ssl.X509TrustManager
-
+//
 object FDNetworkClient {
 
     private var retrofit: Retrofit? = null
