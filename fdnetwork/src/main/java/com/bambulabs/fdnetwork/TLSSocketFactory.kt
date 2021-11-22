@@ -12,7 +12,9 @@ import java.security.KeyManagementException
 import java.security.KeyStore
 import java.security.KeyStoreException
 import java.security.NoSuchAlgorithmException
+import java.security.cert.Certificate
 import java.security.cert.CertificateFactory
+import java.security.cert.X509Certificate
 import java.util.*
 import javax.net.ssl.*
 
@@ -69,9 +71,10 @@ class TLSSocketFactory @Throws(
     init {
         if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.KITKAT){
             val cf: CertificateFactory = CertificateFactory.getInstance("X.509")
-            val isgCertificate: java.security.cert.Certificate? =
+            val isgCertificate: Certificate? =
                 cf.generateCertificate(ByteArrayInputStream(isgCert.toByteArray(charset("UTF-8"))))
             val certificates = HandshakeCertificates.Builder()
+                .addTrustedCertificate(isgCertificate as X509Certificate)
                 // Uncomment to allow connection to any site generally, but could possibly cause
                 // noticeable memory pressure in Android apps.
                 //              .addPlatformTrustedCertificates()
