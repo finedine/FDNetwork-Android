@@ -76,7 +76,9 @@ class TLSSocketFactory @Throws(
                 // noticeable memory pressure in Android apps.
                 //              .addPlatformTrustedCertificates()
                 .build()
-            trustManagers[0] = certificates.trustManager()
+            val tmpList = mutableListOf<TrustManager>()
+            tmpList.add(certificates.trustManager())
+            trustManagers = tmpList.toTypedArray()
         }else {
             generateTrustManagers()
         }
