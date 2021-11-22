@@ -87,14 +87,15 @@ object FDNetworkClient {
             val isgCertificate: java.security.cert.Certificate? =
                 cf.generateCertificate(ByteArrayInputStream(isgCert.toByteArray(charset("UTF-8"))))
             val certificates = HandshakeCertificates.Builder()
-                .addTrustedCertificate(isgCertificate as X509Certificate) // Uncomment to allow connection to any site generally, but could possibly cause
+
+                // Uncomment to allow connection to any site generally, but could possibly cause
                 // noticeable memory pressure in Android apps.
                 //              .addPlatformTrustedCertificates()
                 .build()
 
             try {
                 val httpClient = OkHttpClient.Builder()
-                    .sslSocketFactory(certificates.sslSocketFactory(), certificates.trustManager)
+                    .sslSocketFactory(certificates.sslSocketFactory(), certificates.trustManager())
                     .connectTimeout(3, TimeUnit.MINUTES)
                     .readTimeout(3, TimeUnit.MINUTES)
                     .writeTimeout(3, TimeUnit.MINUTES)

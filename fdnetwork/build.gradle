@@ -69,8 +69,10 @@ dependencies {
     }
 
     //OkHttp
-    implementation('com.squareup.okhttp3:logging-interceptor:4.9.0')
-    implementation 'com.squareup.okhttp3:okhttp-tls:4.8.1'
+    implementation('com.squareup.okhttp3:logging-interceptor:3.12.2'){
+        exclude group: 'com.squareup.okhttp3', module: 'okhttp'
+    }
+    implementation 'com.squareup.okhttp3:okhttp-tls:3.12.2'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
