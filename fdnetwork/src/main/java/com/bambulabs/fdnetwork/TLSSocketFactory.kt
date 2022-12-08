@@ -1,6 +1,9 @@
 package com.bambulabs.fdnetwork
 
+import android.os.Build
 import androidx.annotation.Nullable
+import okhttp3.tls.HandshakeCertificates
+import java.io.ByteArrayInputStream
 import java.io.IOException
 import java.net.InetAddress
 import java.net.Socket
@@ -9,6 +12,9 @@ import java.security.KeyManagementException
 import java.security.KeyStore
 import java.security.KeyStoreException
 import java.security.NoSuchAlgorithmException
+import java.security.cert.Certificate
+import java.security.cert.CertificateFactory
+import java.security.cert.X509Certificate
 import java.util.*
 import javax.net.ssl.*
 
@@ -34,6 +40,8 @@ class TLSSocketFactory @Throws(
         val context = SSLContext.getInstance("TLS")
         context.init(null, trustManagers, null)
         delegate = context.socketFactory
+
+
     }
 
     @Throws(KeyStoreException::class, NoSuchAlgorithmException::class)
