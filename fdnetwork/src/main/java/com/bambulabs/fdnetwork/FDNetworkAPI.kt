@@ -69,7 +69,8 @@ interface FDNetworkAPI {
     suspend fun getOrders(
         @Query("where") where: String,
         @Query("offset") offset: String,
-        @Query("limit") limit: String
+        @Query("limit") limit: String,
+        @Query("populate") populate: String
     ): Response<String>
 
     @GET("v2/orders/{orderID}")
