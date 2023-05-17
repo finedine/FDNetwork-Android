@@ -55,7 +55,7 @@ interface FDNetworkAPI {
     suspend fun getModifierGroups(@Query("limit") limit: String): Response<String>
 
     @GET("v1/entities")
-    suspend fun getMenus(@Query("where") where: String, @Query("limit") limit: String): Response<String>
+    suspend fun getEntities(@Query("where") where: String, @Query("select") select: String, @Query("limit") limit: String): Response<String>
 
     @GET("v1/tickets?sort=-updated_at")
     suspend fun getTickets(
