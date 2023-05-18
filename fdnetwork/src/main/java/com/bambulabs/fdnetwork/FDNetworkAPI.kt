@@ -132,7 +132,7 @@ interface FDNetworkAPI {
 
     @GET("v1/entities")
     suspend fun getEntitiesWithResponse(
-        @Query("where") where: String, @Query("select") select: String, @Query("fill") fill: String, @Query(
+        @Query("where") where: String, @Query("fill") fill: String, @Query(
             "offset"
         ) offset: String, @Query("limit") limit: String
     ): Response<String>
