@@ -3,11 +3,16 @@ package com.bambulabs.fdnetwork
 class FDNetworkCompanions {
     companion object {
 
+        var fdNetworkApplication : FDNetworkApplication? = null
         var authenticationToken: String? = null
         var isStagingMode: Boolean = false
-
+        var isTestModeEnabled: Boolean = false
         var baseUrl = "https://api.finedinemenu.com/"
         var panelUrl = "https://panel.finedinemenu.com/"
+
+        fun setTestMode(boolean: Boolean){
+            isTestModeEnabled = boolean
+        }
 
         fun setStagingActive(boolean: Boolean){
             if (boolean) {

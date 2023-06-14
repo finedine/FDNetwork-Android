@@ -4,6 +4,7 @@ import android.os.Build
 import com.bambulabs.fdnetwork.FDNetworkCompanions.Companion.authenticationToken
 import android.text.TextUtils
 import android.util.Log
+import com.chuckerteam.chucker.api.ChuckerInterceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import okhttp3.tls.HandshakeCertificates
@@ -184,6 +185,13 @@ object FDNetworkClient {
                 // otherwise just pass the original response on
                 response
             }
+
+            if (FDNetworkCompanions.isTestModeEnabled)
+                httpClient.addInterceptor(FDNetworkCompanions.fdNetworkApplication?.let {
+                    ChuckerInterceptor(
+                        it
+                    )
+                })
 
             okHttpClient = httpClient.build()
         }
