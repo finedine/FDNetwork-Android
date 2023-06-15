@@ -185,6 +185,7 @@ object FDNetworkClient {
                 // otherwise just pass the original response on
                 response
             }
+
             if (FDNetworkCompanions.isTestModeEnabled)
                 httpClient.addInterceptor(FDNetworkCompanions.fdNetworkApplication?.let {
                     ChuckInterceptor(
