@@ -68,9 +68,8 @@ dependencies {
         exclude group: 'com.squareup.okhttp3', module: 'okhttp'
     }
 
-    debugImplementation "com.github.chuckerteam.chucker:library:3.5.2"
-    releaseImplementation "com.github.chuckerteam.chucker:library-no-op:3.5.2"
-
+    debugCompile 'com.readystatesoftware.chuck:library:1.1.0'
+    releaseCompile 'com.readystatesoftware.chuck:library-no-op:1.1.0'
     //OkHttp
     implementation('com.squareup.okhttp3:logging-interceptor:3.12.2'){
         exclude group: 'com.squareup.okhttp3', module: 'okhttp'
