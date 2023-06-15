@@ -14,7 +14,6 @@ class FDNetworkCompanions {
             isTestModeEnabled = boolean
         }
 
-
         fun setStagingActive(boolean: Boolean){
             if (boolean) {
 
