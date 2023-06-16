@@ -10,6 +10,7 @@ class FDNetworkCompanions {
         var baseUrl = "https://api.finedinemenu.com/"
         var panelUrl = "https://panel.finedinemenu.com/"
 
+
         fun setTestMode(boolean: Boolean){
             isTestModeEnabled = boolean
         }
