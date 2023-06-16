@@ -4,7 +4,6 @@ import android.os.Build
 import com.bambulabs.fdnetwork.FDNetworkCompanions.Companion.authenticationToken
 import android.text.TextUtils
 import android.util.Log
-import com.chuckerteam.chucker.api.ChuckerInterceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import okhttp3.tls.HandshakeCertificates
@@ -29,7 +28,8 @@ object FDNetworkClient {
 
     private var retrofit: Retrofit? = null
     private const val REQUEST_TIMEOUT = 3
-    private var okHttpClient: OkHttpClient? = null
+    var okHttpClient: OkHttpClient? = null
+    var httpClient : OkHttpClient.Builder? = null
 
     fun getClient(url: String): Retrofit {
 
@@ -146,7 +146,7 @@ object FDNetworkClient {
                 e.printStackTrace()
             }
         } else {
-            val httpClient = OkHttpClient().newBuilder()
+            httpClient = OkHttpClient().newBuilder()
                 .connectTimeout(REQUEST_TIMEOUT.toLong(), TimeUnit.MINUTES)
                 .readTimeout(REQUEST_TIMEOUT.toLong(), TimeUnit.MINUTES)
                 .writeTimeout(REQUEST_TIMEOUT.toLong(), TimeUnit.MINUTES)
@@ -154,8 +154,8 @@ object FDNetworkClient {
             val interceptor = HttpLoggingInterceptor()
             interceptor.level = HttpLoggingInterceptor.Level.BODY
 
-            httpClient.addInterceptor(interceptor)
-            httpClient.addInterceptor { chain ->
+            httpClient?.addInterceptor(interceptor)
+            httpClient?.addInterceptor { chain ->
                 val original = chain.request()
                 val requestBuilder = original.newBuilder()
                     .addHeader("Accept", "application/json")
@@ -171,7 +171,7 @@ object FDNetworkClient {
                 chain.proceed(request)
             }
 
-            httpClient.addInterceptor { chain ->
+            httpClient?.addInterceptor { chain ->
                 val request = chain.request()
                 // try the request
                 var response = chain.proceed(request)
@@ -186,14 +186,7 @@ object FDNetworkClient {
                 response
             }
 
-            if (FDNetworkCompanions.isTestModeEnabled)
-                httpClient.addInterceptor(FDNetworkCompanions.fdNetworkApplication?.let {
-                    ChuckerInterceptor(
-                        it
-                    )
-                })
-
-            okHttpClient = httpClient.build()
+            okHttpClient = httpClient?.build()
         }
     }
     fun OkHttpClient.Builder.ignoreAllSSLErrors(): OkHttpClient.Builder {
