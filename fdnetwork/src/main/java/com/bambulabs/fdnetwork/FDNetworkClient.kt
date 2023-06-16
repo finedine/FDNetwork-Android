@@ -146,47 +146,49 @@ object FDNetworkClient {
                 e.printStackTrace()
             }
         } else {
-            httpClient = OkHttpClient().newBuilder()
-                .connectTimeout(REQUEST_TIMEOUT.toLong(), TimeUnit.MINUTES)
-                .readTimeout(REQUEST_TIMEOUT.toLong(), TimeUnit.MINUTES)
-                .writeTimeout(REQUEST_TIMEOUT.toLong(), TimeUnit.MINUTES)
+            if (!FDNetworkCompanions.isTestModeEnabled) {
+                httpClient = OkHttpClient().newBuilder()
+                    .connectTimeout(REQUEST_TIMEOUT.toLong(), TimeUnit.MINUTES)
+                    .readTimeout(REQUEST_TIMEOUT.toLong(), TimeUnit.MINUTES)
+                    .writeTimeout(REQUEST_TIMEOUT.toLong(), TimeUnit.MINUTES)
 
-            val interceptor = HttpLoggingInterceptor()
-            interceptor.level = HttpLoggingInterceptor.Level.BODY
+                val interceptor = HttpLoggingInterceptor()
+                interceptor.level = HttpLoggingInterceptor.Level.BODY
 
-            httpClient?.addInterceptor(interceptor)
-            httpClient?.addInterceptor { chain ->
-                val original = chain.request()
-                val requestBuilder = original.newBuilder()
-                    .addHeader("Accept", "application/json")
-                    .addHeader("Content-Type", "application/json")
+                httpClient?.addInterceptor(interceptor)
+                httpClient?.addInterceptor { chain ->
+                    val original = chain.request()
+                    val requestBuilder = original.newBuilder()
+                        .addHeader("Accept", "application/json")
+                        .addHeader("Content-Type", "application/json")
 
-                // Adding Authorization token (API Key)
-                // Requests will be denied without API key
-                if (!TextUtils.isEmpty(authenticationToken)) {
-                    authenticationToken?.let { requestBuilder.addHeader("Authorization", it) }
+                    // Adding Authorization token (API Key)
+                    // Requests will be denied without API key
+                    if (!TextUtils.isEmpty(authenticationToken)) {
+                        authenticationToken?.let { requestBuilder.addHeader("Authorization", it) }
+                    }
+
+                    val request = requestBuilder.build()
+                    chain.proceed(request)
                 }
 
-                val request = requestBuilder.build()
-                chain.proceed(request)
-            }
-
-            httpClient?.addInterceptor { chain ->
-                val request = chain.request()
-                // try the request
-                var response = chain.proceed(request)
-                var tryCount = 0
-                while (!response.isSuccessful && tryCount < 3) {
-                    Log.d("intercept", "Request is not successful - $tryCount")
-                    tryCount++
-                    // retry the request
-                    response = chain.proceed(request)
+                httpClient?.addInterceptor { chain ->
+                    val request = chain.request()
+                    // try the request
+                    var response = chain.proceed(request)
+                    var tryCount = 0
+                    while (!response.isSuccessful && tryCount < 3) {
+                        Log.d("intercept", "Request is not successful - $tryCount")
+                        tryCount++
+                        // retry the request
+                        response = chain.proceed(request)
+                    }
+                    // otherwise just pass the original response on
+                    response
                 }
-                // otherwise just pass the original response on
-                response
-            }
 
-            okHttpClient = httpClient?.build()
+                okHttpClient = httpClient?.build()
+            }
         }
     }
     fun OkHttpClient.Builder.ignoreAllSSLErrors(): OkHttpClient.Builder {
