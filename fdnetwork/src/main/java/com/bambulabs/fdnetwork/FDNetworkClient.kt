@@ -50,7 +50,7 @@ object FDNetworkClient {
     private fun initOkHttp() {
 
 
-        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.KITKAT) {
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.M) {
             
             val isgCert = """
                 -----BEGIN CERTIFICATE-----
